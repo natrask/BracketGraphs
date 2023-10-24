@@ -1,0 +1,76 @@
+command: 
+  - python
+  - tune_parameters.py
+  - ${args_no_boolean_flags}
+  - --bracket
+  - hamiltonian
+  - --dataset
+  - CoauthorCS
+  - --linear_encoder
+  - --linear_decoder
+  - --no_edge_encoder
+  - --no_edge_decoder
+  - --use_lcc
+name: 'hamil-CoauthorCS'
+method: bayes
+metric:
+  name: val_acc
+  goal: maximize
+early_terminate:
+  type: hyperband
+  min_iter: 7
+parameters:
+  learning_rate:
+    min: 0.0005
+    max: 0.05
+  final_time:
+    min: 1.
+    max: 20.
+  pre_encoder_dropout:
+    min: 0.0
+    max: 0.9
+  pre_decoder_dropout:
+    min: 0.0
+    max: 0.9
+  num_epochs:
+    min: 5
+    max: 100
+  heads:
+    values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  attention_ratio:
+    values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  hidden_dim:
+    values: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]
+  weight_decay:
+    min: 0.0
+    max: 0.1
+  constant_attention:
+    values:
+      - false
+      - true
+  use_squareplus:
+    values:
+      - false
+      - true
+  add_self_loops:
+    values:
+      - false
+      - true
+  no_symmetrize:
+    values:
+      - false
+      - true
+  alpha_multiplier:
+    values:
+      - false
+      - true
+  dropout_edges:
+    values:
+      - false
+      - true
+  optimizer:
+    values: ['adam', 'adamax']
+  method:
+    values: ['midpoint', 'rk4', 'dopri5']
+  attention_type:
+    values: ['scaled_dot', 'exp_kernel', 'cosine_sim', 'pearson']
