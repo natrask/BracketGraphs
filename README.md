@@ -13,6 +13,3 @@ The file "parameters.md" provides explicit commands that can be run to generate 
 - PyTorch
 - PyTorch Geometric
 
-## Citation
-
-TODO
